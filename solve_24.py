@@ -5,12 +5,21 @@ import itertools
 OPERATIONS = ["+", "-", "*", "/"]
 
 
+def check_equation(equation):
+    if eval(equation) == 24:
+        print(equation, "= 24")
+
+
 def solve(n):
     for e in itertools.permutations(n):
-        for o in itertools.combinations_with_replacement(OPERATIONS, 3):
-            equation = f"((({e[0]} {o[0]} {e[1]}) {o[1]} {e[2]}) {o[2]} {e[3]})"
-            if eval(equation) == 24:
-                print(equation, "= 24")
+        for o in itertools.product(OPERATIONS, OPERATIONS, OPERATIONS):
+            e0, e1, e2, e3 = e
+            o0, o1, o2 = o
+            check_equation(f"(({e0} {o0} {e1}) {o1} {e2}) {o2} {e3}")
+            check_equation(f"({e0} {o0} ({e1} {o1} {e2})) {o2} {e3}")
+            check_equation(f"({e0} {o0} {e1}) {o1} ({e2} {o2} {e3})")
+            check_equation(f"{e0} {o0} (({e1} {o1} {e2}) {o2} {e3})")
+            check_equation(f"{e0} {o0} ({e1} {o1} ({e2} {o2} {e3}))")
 
 
 if __name__ == "__main__":
