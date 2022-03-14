@@ -6,8 +6,12 @@ OPERATIONS = ["+", "-", "*", "/"]
 
 
 def check_equation(equation):
-    if eval(equation) == 24:
-        print(equation, "= 24")
+    try:
+        if eval(equation) == 24:
+            print(equation, "= 24")
+    except ZeroDivisionError:
+        # probably not a solution :)
+        pass
 
 
 def solve(n):
